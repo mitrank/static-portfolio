@@ -12,8 +12,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
-  title: "MS Portfolio",
-  description: "Software Developer Portfolio of Mitrank Shah",
+  title: "Mitrank Shah",
+  description: "Software Developer Portfolio",
 };
 
 export default function RootLayout({ children }) {
