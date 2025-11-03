@@ -65,7 +65,7 @@ const Skills = () => {
                 <button
                   key={tab.id}
                   onClick={() => setActiveTab(tab.id)}
-                  className={`flex-1 px-4 py-2 rounded-md transition-colors duration-300 ${
+                  className={`cursor-pointer flex-1 px-4 py-2 rounded-md transition-colors duration-300 ${
                     activeTab === tab.id
                       ? "bg-white text-slate-900 shadow-sm"
                       : "text-slate-600 hover:text-slate-900"

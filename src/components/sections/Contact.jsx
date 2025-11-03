@@ -1,7 +1,9 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { Mail, MapPin, Phone } from "../Icons";
+import PopupModal from "../PopupModal";
+import emailjs from "emailjs-com";
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -9,12 +11,45 @@ const Contact = () => {
     email: "",
     message: "",
   });
+  const formRef = useRef();
+  const [showModal, setShowModal] = useState(false);
+  const [popupData, setPopupData] = useState({ title: "", message: "" });
+  const [isSending, setIsSending] = useState(false);
 
-  const handleSubmit = (e) => {
+  const handleSubmitFunction = async (e) => {
     e.preventDefault();
-    console.log("Form submitted:", formData);
-    alert("Thank you for your message! I'll get back to you soon.");
-    setFormData({ name: "", email: "", message: "" });
+
+    if (isSending) return; // prevent double clicks
+    setIsSending(true);
+
+    try {
+      const res = await emailjs.sendForm(
+        process.env.NEXT_PUBLIC_SERVICE_ID,
+        process.env.NEXT_PUBLIC_TEMPLATE_ID,
+        formRef.current,
+        process.env.NEXT_PUBLIC_USER_ID
+      );
+
+      console.log("Email sent:", res.status, res.text);
+
+      setPopupData({
+        title: "Message Sent",
+        message: "Thank you for reaching out! I'll get back to you soon.",
+      });
+    } catch (err) {
+      console.log("EmailJS error:", err);
+
+      setPopupData({
+        title: "Error",
+        message: "Failed to send message. Please try again later.",
+      });
+    } finally {
+      setShowModal(true);
+      setIsSending(false);
+
+      setFormData({ name: "", email: "", message: "" });
+      formRef.current.reset();
+    }
   };
 
   const handleChange = (e) => {
@@ -26,10 +61,19 @@ const Contact = () => {
 
   return (
     <section id="contact" className="py-20 bg-slate-50 w-full min-h-screen">
+      <PopupModal
+        isOpen={showModal}
+        title={popupData.title}
+        message={popupData.message}
+        onClose={() => setShowModal(false)}
+      />
+
       <div className="container mx-auto px-4">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="mb-4 text-black text-xl font-semibold">Get In Touch</h2>
+            <h2 className="mb-4 text-black text-xl font-semibold">
+              Get In Touch
+            </h2>
             <p className="text-slate-600">
               Have a project in mind? Let's work together!
             </p>
@@ -53,6 +97,7 @@ const Contact = () => {
                     </a>
                   </div>
                 </div>
+
                 <div className="flex items-start gap-4">
                   <div className="p-3 bg-blue-50 rounded-lg">
                     <Phone className="w-5 h-5 text-blue-600" />
@@ -60,13 +105,14 @@ const Contact = () => {
                   <div>
                     <p>Phone</p>
                     <a
-                      href="tel:+1234567890"
+                      href="tel:+91 8850616628"
                       className="text-blue-600 hover:underline"
                     >
                       +91-8850616628
                     </a>
                   </div>
                 </div>
+
                 <div className="flex items-start gap-4">
                   <div className="p-3 bg-blue-50 rounded-lg">
                     <MapPin className="w-5 h-5 text-blue-600" />
@@ -80,7 +126,11 @@ const Contact = () => {
             </div>
 
             <div>
-              <form onSubmit={handleSubmit} className="space-y-6 text-black">
+              <form
+                ref={formRef}
+                onSubmit={handleSubmitFunction}
+                className="space-y-6 text-black"
+              >
                 <div>
                   <label htmlFor="name" className="block mb-2">
                     Name
@@ -96,6 +146,7 @@ const Contact = () => {
                     className="w-full px-4 py-2 border border-slate-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                   />
                 </div>
+
                 <div>
                   <label htmlFor="email" className="block mb-2">
                     Email
@@ -111,6 +162,7 @@ const Contact = () => {
                     className="w-full px-4 py-2 border border-slate-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                   />
                 </div>
+
                 <div>
                   <label htmlFor="message" className="block mb-2">
                     Message
@@ -126,11 +178,17 @@ const Contact = () => {
                     className="w-full px-4 py-2 border border-slate-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
                   />
                 </div>
+
                 <button
                   type="submit"
-                  className="w-full px-6 py-3 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
+                  disabled={isSending}
+                  className={`cursor-pointer w-full px-6 py-3 rounded-md text-white transition-colors ${
+                    isSending
+                      ? "bg-blue-400 cursor-not-allowed"
+                      : "bg-blue-600 hover:bg-blue-700"
+                  }`}
                 >
-                  Send Message
+                  {isSending ? "Sending..." : "Send Message"}
                 </button>
               </form>
             </div>

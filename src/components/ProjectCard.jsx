@@ -16,13 +16,12 @@ const ProjectCard = ({
       key={id}
       className="bg-white border border-slate-200 rounded-lg overflow-hidden hover:shadow-lg transition-shadow"
     >
-      <div className="aspect-video overflow-hidden">
+      <div className="aspect-video relative overflow-hidden">
         <Image
           src={image}
           alt={title}
-          width={100}
-          height={100}
-          className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+          fill
+          className="object-cover hover:scale-105 transition-transform duration-300"
         />
       </div>
       <div className="p-6">
@@ -32,7 +31,7 @@ const ProjectCard = ({
           {tags.map((tag, tagIndex) => (
             <span
               key={tagIndex}
-              className="px-3 py-1 border border-slate-300 rounded-md text-slate-700"
+              className="px-3 py-1 border border-slate-300 bg-slate-50 rounded-md text-slate-500"
             >
               {tag}
             </span>
