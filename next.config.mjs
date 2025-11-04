@@ -5,7 +5,7 @@ const nextConfig = {
     unoptimized: true,
   },
   trailingSlash: true,
-  assetPrefix: '/static-portfolio/',
+  assetPrefix: "/static-portfolio/",
 };
 
 export default nextConfig;

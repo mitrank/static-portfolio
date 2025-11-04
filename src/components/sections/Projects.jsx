@@ -2,15 +2,17 @@
 
 import React from "react";
 import ProjectCard from "../ProjectCard";
+import finogrowImage from "../../assets/images/finogrow.png";
+import xoraImage from "../../assets/images/xora.png";
+import aoraImage from "../../assets/images/aora.png";
 
 const Projects = () => {
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_PATH || '';
   const projects = [
     {
       title: "FinoGrow",
       description:
         "A full-stack personal finance dashboard with bank integration, and interactive charts to deliver real-time transaction and category insights.",
-      image: `${baseUrl}/images/finogrow.png`,
+      image: finogrowImage,
       tags: [
         "React",
         "NextJS",
@@ -27,7 +29,7 @@ const Projects = () => {
       title: "XORA",
       description:
         "A modern SaaS landing page, featuring responsive design patterns and interactive UI components.",
-      image: `${baseUrl}/images/xora.png`,
+      image: xoraImage,
       tags: ["React", "Vite", "Shadcn UI", "Tailwind CSS"],
       github: "https://github.com/mitrank/xora",
       demo: "https://mitrank.github.io/xora",
@@ -36,7 +38,7 @@ const Projects = () => {
       title: "Aora",
       description:
         "A production-ready mobile video sharing app, featuring user authentication, video upload & discovery, search, bookmarks, and modular reusable components.",
-      image: `${baseUrl}/images/aora.png`,
+      image: aoraImage,
       tags: ["React Native", "Expo", "Tailwind CSS", "AppWrite"],
       github: "https://github.com/mitrank/aora-app",
       // demo: "https://example.com",
