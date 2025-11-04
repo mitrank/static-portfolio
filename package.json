@@ -1,6 +1,7 @@
 {
   "name": "portfolio",
   "version": "0.1.0",
+  "author": "Mitrank Shah",
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
@@ -12,6 +13,7 @@
   "dependencies": {
     "emailjs-com": "^3.2.0",
     "framer-motion": "^12.23.24",
+    "gh-pages": "^6.3.0",
     "next": "15.5.6",
     "react": "19.1.0",
     "react-dom": "19.1.0"

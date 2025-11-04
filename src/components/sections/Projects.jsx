@@ -4,12 +4,13 @@ import React from "react";
 import ProjectCard from "../ProjectCard";
 
 const Projects = () => {
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_PATH || '';
   const projects = [
     {
       title: "FinoGrow",
       description:
         "A full-stack personal finance dashboard with bank integration, and interactive charts to deliver real-time transaction and category insights.",
-      image: "/images/finogrow.png",
+      image: `${baseUrl}/images/finogrow.png`,
       tags: [
         "React",
         "NextJS",
@@ -26,7 +27,7 @@ const Projects = () => {
       title: "XORA",
       description:
         "A modern SaaS landing page, featuring responsive design patterns and interactive UI components.",
-      image: "/images/xora.png",
+      image: `${baseUrl}/images/xora.png`,
       tags: ["React", "Vite", "Shadcn UI", "Tailwind CSS"],
       github: "https://github.com/mitrank/xora",
       demo: "https://mitrank.github.io/xora",
@@ -35,7 +36,7 @@ const Projects = () => {
       title: "Aora",
       description:
         "A production-ready mobile video sharing app, featuring user authentication, video upload & discovery, search, bookmarks, and modular reusable components.",
-      image: "/images/aora.png",
+      image: `${baseUrl}/images/aora.png`,
       tags: ["React Native", "Expo", "Tailwind CSS", "AppWrite"],
       github: "https://github.com/mitrank/aora-app",
       // demo: "https://example.com",
